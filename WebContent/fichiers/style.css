@@ -668,3 +668,31 @@ pre {
 .username-coloured {
 	font-weight: bold;
 }
+
+/* Custom
+ ------------ */
+
+ul.linklist {
+    height: 4%;
+    overflow: hidden;
+}
+
+.rightside {
+    float: right;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+
+.navbar_element {
+	margin-right: 10px;
+	float: right;
+	color: black;
+	font-weight: bold;
+	white-space: normal;
+	font-size: 1em;
+}
+
+.info_msg {
+	
+}
