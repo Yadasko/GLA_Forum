@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" xml:lang="en-gb"
 	lang="en-gb">
@@ -60,6 +62,12 @@
 					</table>
 
 				</form>
+
+				<c:if test="${info_msg != null}">
+				<tr>
+				    <td valign="top">${info_msg}</td>
+				</tr>        
+				</c:if>
 
 				<table class="tablebg" style="margin-top: 5px;" cellspacing="1"
 					cellpadding="0" width="100%">

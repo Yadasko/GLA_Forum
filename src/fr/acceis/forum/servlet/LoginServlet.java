@@ -3,7 +3,6 @@ package fr.acceis.forum.servlet;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +17,7 @@ public class LoginServlet extends HttpServlet {
 			req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
 		}
 		else {
-			session.setAttribute("info_msg", "Vous êtes déjà connecté.");
+			req.setAttribute("info_msg", "Vous êtes déjà connecté.");
 			req.getRequestDispatcher("/WEB-INF/jsp/threads.jsp").forward(req, resp);
 		}
 			
@@ -38,6 +37,8 @@ public class LoginServlet extends HttpServlet {
 			req.getRequestDispatcher("/WEB-INF/jsp/threads.jsp").forward(req, resp);
 		}
 		else {
+			req.setAttribute("info_msg", "Utilisateur/Mot de passe incorrect.");
+			//session.setAttribute("info_msg", "Utilisateur/Mot de passe incorrect.");
 			req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
 		}
 		

@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" xml:lang="en-gb"
 	lang="en-gb">
@@ -22,27 +24,24 @@
 						<tr>
 							<td class="row1">
 							<p class="breadcrumbs">
-							 <% // Possibilité d'utiliser ${ sessionScope.username }
-							 	String username = (String) session.getAttribute("username");
-							 	if (username != null) {
-							 %>
-							 <%= username %> 
-							 <%
-							 	}
-							 	else {
-							 %> Non connecté 
-							 <%
-							 	}
-							 %>
+							<!-- We could have used this one-liner if we didn't care about the link being displayed only when not connected -->
+							<!-- <c:out value="${username != null ? username : '<a> Non connecté !</a>'}"/> -->
+								<c:set var="username" value="${sessionScope.username}"/>
+								
+								<c:if test="${username == null }">
+									<a href="/forum/login">
+									<c:out value="Non connecté !"/>
+									</a>
+								</c:if>
+								
+								<c:if test="${ username != null }">
+									<c:out value="${username}"/>
+								</c:if>
+								
 							</p>
-							<%
-							String msg = (String) session.getAttribute("info_msg");
-							if (msg != null) {
-							%>
 							<td class="row1">			
-							<p class="breadcrumbs"> <%= msg %></p>
+							<p class="breadcrumbs"><c:out value="${info_msg != null ? info_msg : ''}"/> </p>
 							</td>
-							<% } %>
 							</td>
 						</tr>
 					</tbody>
