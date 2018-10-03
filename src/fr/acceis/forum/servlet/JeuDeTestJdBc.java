@@ -23,6 +23,7 @@ public class JeuDeTestJdBc {
 		for (String query : QUERIES) {
 			stmt.executeUpdate(query);
 		}
+		
 
 		stmt.close();
 		connexion.close();
