@@ -20,7 +20,7 @@
 						<tr>
 							<td class="row1">
 								<p class="breadcrumbs">
-									<a href="#">Board index</a>
+									<a href="/forum/home">Accueil</a>
 								</p>
 							</td>
 						</tr>

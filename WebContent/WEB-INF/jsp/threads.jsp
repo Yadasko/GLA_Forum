@@ -23,7 +23,7 @@
 				<tbody>
 					<tr>
 						<td class="row1">
-							<p class="breadcrumbs">Accueil</p>
+							<a href="/forum/home"><p class="breadcrumbs">Accueil</p></a>
 							 <c:if test="${ info_msg != null}">
 								<td class="row1">
 									<p class="breadcrumbs">
@@ -37,12 +37,13 @@
 									<!-- <c:out value="${username != null ? username : '<a> Non connecté !</a>'}"/> -->
 									<c:set var="username" value="${sessionScope.username}" />
 									<c:if test="${username == null }">
-										<a href="/forum/login"> <c:out value="Non connecté !" />
+										<a href="/forum/login"> <c:out value="Se connecter !" />
 										</a>
 									</c:if>
 
 									<c:if test="${ username != null }">
 											${username}
+											<a style="padding-left: 10px;" href="/forum/logout"> Se déconnecter</a>
 									</c:if>
 								</p>
 	
