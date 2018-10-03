@@ -2,7 +2,11 @@ package fr.acceis.forum.servlet;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
+
+import fr.acceis.forum.metier.DBUtils;
+import fr.acceis.forum.metier.Datafetcher;
 
 public class JeuDeTestJdBc {
 
@@ -16,17 +20,27 @@ public class JeuDeTestJdBc {
 	};
 
 	public static void main(String[] args) throws Exception {
-		Class.forName("org.hsqldb.jdbcDriver").newInstance();
-		Connection connexion = DriverManager.getConnection("jdbc:hsqldb:data/basejpa", "sa",  "");
-		Statement stmt = connexion.createStatement();
+		/*Connection connexion = DriverManager.getConnection("jdbc:hsqldb:data/basejpa", "sa",  "");
+		 Statement stmt = connexion.createStatement();
 
-		for (String query : QUERIES) {
+		/*for (String query : QUERIES) {
 			stmt.executeUpdate(query);
 		}
 		
 
 		stmt.close();
 		connexion.close();
+		 
+		 ResultSet result = stmt.executeQuery(
+		            "SELECT * FROM Utilisateurs WHERE login = 'admin'");
+		 
+		 System.out.println("Results : ");
+		 while(result.next()) {
+			 System.out.println(result.);
+		 }
+		*/
+		Datafetcher db = DBUtils.getDataFetcher();
+		System.out.println(db.fetchUser("aze"));
 
 	}
 
