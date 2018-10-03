@@ -36,15 +36,13 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("Username " + username + " - Password " + passw);
 		
 		HttpSession session = req.getSession();	
-		
 		try {
 			if (auth(username, passw)) {
-				session.setAttribute("username", username);
+				session.setAttribute("username", username);	
 				req.getRequestDispatcher("/WEB-INF/jsp/threads.jsp").forward(req, resp);
 			}
 			else {
 				req.setAttribute("info_msg", "Utilisateur/Mot de passe incorrect.");
-				//session.setAttribute("info_msg", "Utilisateur/Mot de passe incorrect.");
 				req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
 			}
 		} catch (SQLException e) {
@@ -60,10 +58,9 @@ public class LoginServlet extends HttpServlet {
 		Datafetcher df = DBUtils.getDataFetcher();
 		
 		User user = df.fetchUser(login);
-		System.out.println(user);
 		
-		if (user.getId() == -1) return false; // No one has been found
-		return (user.getPassword().equals(password) && user.getLogin() == login);
+		if (user.getId() == -1) return false; // No one has been found	
+		return (user.getPassword().equals(password) && user.getLogin().equals(login));
 	}
 
 }
