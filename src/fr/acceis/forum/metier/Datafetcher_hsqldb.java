@@ -5,8 +5,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
+import fr.acceis.forum.models.Message;
 import fr.acceis.forum.models.User;
+import fr.acceis.forum.models.Thread;
 
 
 public class Datafetcher_hsqldb implements Datafetcher {
@@ -61,7 +65,33 @@ public class Datafetcher_hsqldb implements Datafetcher {
 		}
 			
 	}
+	
 
+	@Override
+	public List<Message> fetchAssociatedMessages(int thread_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	@Override
+	public List<Thread> fetchThreads() throws SQLException {
+		ArrayList<Thread> list = new ArrayList<Thread>();
+		Statement stmt = this.connection.createStatement();
+			
+		String SQL =  "SELECT * FROM Threads";
+		System.out.println("Executing SQL: " + SQL);
+		
+		ResultSet result = stmt.executeQuery( SQL );
+		stmt.close();
+		
+		while(result.next()) {
+			list.add(new Thread(result.getInt("id"), result.getString("name")));
+		}
+		
+		return list;
+	}
+	
 	@Override
 	public void closeConnection() {
 		if (connection != null)
