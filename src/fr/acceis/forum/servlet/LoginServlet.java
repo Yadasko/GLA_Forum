@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.acceis.forum.metier.DBUtils;
 import fr.acceis.forum.metier.Datafetcher;
-import fr.acceis.forum.metier.User;
+import fr.acceis.forum.models.User;
 
 public class LoginServlet extends HttpServlet {
 	

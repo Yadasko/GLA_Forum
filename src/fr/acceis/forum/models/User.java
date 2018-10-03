@@ -1,4 +1,4 @@
-package fr.acceis.forum.metier;
+package fr.acceis.forum.models;
 
 public class User {
 	

@@ -1,0 +1,14 @@
+/*C2*/SET SCHEMA PUBLIC
+drop table Messages if exists
+create table Messages (id bigint not null, author varchar(255), content varchar(255), thread_id bigint not null, primary key (id))
+INSERT INTO MESSAGES VALUES(1,'admin','Tomcat is bae',1)
+COMMIT
+INSERT INTO MESSAGES VALUES(2,'pierre','I prefer PHP (don t burn me pls).',1)
+COMMIT
+INSERT INTO MESSAGES VALUES(3,'admin','As long as you don t use Javascript we are fine!',1)
+COMMIT
+INSERT INTO MESSAGES VALUES(4,'admin','Yes. End of discussion',2)
+COMMIT
+INSERT INTO MESSAGES VALUES(5,'jacques','PASTAAAAAAAAAAS',3)
+COMMIT
+DISCONNECT

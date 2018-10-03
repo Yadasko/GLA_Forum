@@ -103,8 +103,38 @@
 					</tr>
 				</table>
 	
-	
+		<form action="/forum/login" method="post">
+
+					<table class="tablebg" cellspacing="1" width="100%">
+						<tbody>
+							<tr>
+								<th colspan="2">Répondre</th>
+							</tr>
+
+							<tr>
+								<td class="row2 wrapcentre">
+
+									<table style="width: 100%;" cellspacing="1" cellpadding="4" align="center">
+										<tbody>
+											<tr>
+												<td valign="top"><b class="gensmall">Message :</b></td>
+												<td><textarea>Lorem ipsum sit dolor</textarea></td>
+											</tr>
+
+										</tbody>
+									</table>
+								</td>
+							</tr>
+
+							<tr>
+								<td class="cat" colspan="2" align="center"><input name="login" class="btnmain" value="Poster" tabindex="5" type="submit" /></td>
+							</tr>
+						</tbody>
+					</table>
+
+				</form>
 			</div>
+
 		
 			<br clear="all" />
 			<table class="tablebg" style="margin-top: 5px;" cellspacing="1"
