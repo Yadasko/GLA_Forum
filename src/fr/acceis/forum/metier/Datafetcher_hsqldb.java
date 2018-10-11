@@ -24,7 +24,8 @@ public class Datafetcher_hsqldb implements Datafetcher {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		connection = DriverManager.getConnection("jdbc:hsqldb:D:/M2/GLA/TP1/Servers/forum/data/", "sa",  "");
+		// connection = DriverManager.getConnection("jdbc:hsqldb:D:/M2/GLA/TP1/Servers/forum/data/", "sa",  ""); 
+		connection = DriverManager.getConnection("jdbc:hsqldb:F:/Documents/M2/GLA/GLA_Forum", "sa",  ""); 
 		System.out.println("CONNECTION IS SET.");
 	}
 
@@ -50,7 +51,7 @@ public class Datafetcher_hsqldb implements Datafetcher {
 	public User fetchUser(String login) throws SQLException {
 		Statement stmt = this.connection.createStatement();
 		
-		String SQL =  "SELECT * FROM Utilisateurs WHERE login = '" + login + "'";
+		String SQL =  "SELECT * FROM UTILISATEURS WHERE login = '" + login + "'";
 		System.out.println("Executing SQL: " + SQL);
 		
 		ResultSet result = stmt.executeQuery( SQL );
@@ -66,7 +67,7 @@ public class Datafetcher_hsqldb implements Datafetcher {
 			
 	}
 	
-
+	
 	@Override
 	public List<Message> fetchAssociatedMessages(int thread_id) {
 		// TODO Auto-generated method stub
