@@ -39,7 +39,8 @@ public class LoginServlet extends HttpServlet {
 		try {
 			if (auth(username, passw)) {
 				session.setAttribute("username", username);	
-				req.getRequestDispatcher("/WEB-INF/jsp/threads.jsp").forward(req, resp);
+				//req.getRequestDispatcher("/WEB-INF/jsp/threads.jsp").forward(req, resp);
+				resp.sendRedirect("/forum/home");
 			}
 			else {
 				req.setAttribute("info_msg", "Utilisateur/Mot de passe incorrect.");

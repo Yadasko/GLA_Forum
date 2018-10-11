@@ -21,6 +21,8 @@ public interface Datafetcher {
 	
 	public User fetchUser(String login) throws SQLException;
 	
+	public User fetchUser(int id) throws SQLException;
+	
 	public void closeConnection();
 	
 }

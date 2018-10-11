@@ -8,13 +8,10 @@ public class DBUtils {
 	
 	public static Datafetcher getDataFetcher() {
 		if (DBUtils.db == null) {
-			try {
-				DBUtils.db = new Datafetcher_hsqldb();
-				System.out.println("CREATED OUR DATAFETCHER.");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			//DBUtils.db = new Datafetcher_hsqldb();
+			DBUtils.db = new Datafetcher_sqlite();
+			System.out.println("CREATED OUR DATAFETCHER.");
+
 		}
 		return DBUtils.db;
 	}
