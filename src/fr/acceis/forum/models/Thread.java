@@ -45,30 +45,10 @@ public class Thread {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public User getAuthor() {
-		Datafetcher d = DBUtils.getDataFetcher();
-		try {
-			return d.fetchUser(this.id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return new User(null, -1, null);
-		}
-	}
-	
+		
 	public int getViews() {
 		return this.views;
 	}
-	
-	public List<Message> getAssociatedMessages() {
-		try {
-			return DBUtils.getDataFetcher().fetchAssociatedMessages(this.id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return new ArrayList<Message>();
-		}
-	}
-	
 	
 	public int getResponses_count() {
 		return responses_count;

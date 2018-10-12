@@ -145,7 +145,7 @@ public class Datafetcher_sqlite implements Datafetcher {
 		String SQL =  "UPDATE THREADS SET  views = views + 1 WHERE id = " + thread_id;
 		System.out.println("Executing SQL: " + SQL);
 
-		stmt.executeQuery( SQL );
+		stmt.execute( SQL );
 		stmt.close();
 	}
 

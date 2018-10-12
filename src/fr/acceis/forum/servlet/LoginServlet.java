@@ -18,12 +18,18 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
+		
+		System.out.println(req.getParameter("ref"));
+				
 		if (session.getAttribute("username") == null) {
 			req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
 		}
 		else {
 			req.setAttribute("info_msg", "Vous êtes déjà connecté.");
-			req.getRequestDispatcher("/WEB-INF/jsp/threads.jsp").forward(req, resp);
+			if (req.getParameter("ref") != null)
+				req.getRequestDispatcher(req.getParameter("ref")).forward(req, resp);
+			else
+				req.getRequestDispatcher("/WEB-INF/jsp/threads.jsp").forward(req, resp);
 		}
 			
 	}
@@ -40,7 +46,10 @@ public class LoginServlet extends HttpServlet {
 			if (auth(username, passw)) {
 				session.setAttribute("username", username);	
 				//req.getRequestDispatcher("/WEB-INF/jsp/threads.jsp").forward(req, resp);
-				resp.sendRedirect("/forum/home");
+				if (req.getParameter("ref") != null)
+					resp.sendRedirect(req.getParameter("ref"));
+				else
+					resp.sendRedirect("/forum/home");
 			}
 			else {
 				req.setAttribute("info_msg", "Utilisateur/Mot de passe incorrect.");
