@@ -106,7 +106,7 @@ public class Datafetcher_hsqldb implements Datafetcher {
 		stmt.close();
 
 		while(result.next()) {
-			list.add(new Thread(result.getInt("id"), result.getString("name"), result.getInt("author_id")));
+			list.add(new Thread(result.getInt("id"), result.getString("name"), result.getInt("author_id"), result.getInt("views")));
 		}
 
 		return list;

@@ -91,11 +91,11 @@
 
 					<c:forEach items="${threads}" var="threads">
 						<tr>
-							<td class="row1"><a class="topictitle" href="#"> ${threads.name}</a></td>
+							<td class="row1"><a class="topictitle" href="/forum/thread?id=${threads.id}">${threads.name}</a></td>
 							<td class="row2" align="center" width="130"><p class="topicauthor">
 								<a class="username-coloured" href="#">${threads.author.login}</a></p></td>
 							<td class="row1" align="center" width="50"><p class="topicdetails">10</p></td>
-					       <td class="row2" align="center" width="50"><p class="topicdetails">1234</p></td>
+					       <td class="row2" align="center" width="50"><p class="topicdetails">${threads.views}</p></td>
 					    </tr>
 					</c:forEach>
 					

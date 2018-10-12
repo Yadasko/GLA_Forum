@@ -15,7 +15,7 @@ public interface Datafetcher {
 	
 	public String getAllData();
 	
-	public List<Message> fetchAssociatedMessages(int thread_id);
+	public List<Message> fetchAssociatedMessages(int thread_id) throws SQLException;
 	
 	public List<Thread> fetchThreads() throws SQLException;
 	

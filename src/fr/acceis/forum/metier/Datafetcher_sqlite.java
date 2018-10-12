@@ -15,7 +15,9 @@ public class Datafetcher_sqlite implements Datafetcher {
 	public Datafetcher_sqlite() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite:F:/Documents/M2/GLA/GLA_Forum/forum.db");
+			//connection = DriverManager.getConnection("jdbc:sqlite:F:/Documents/M2/GLA/GLA_Forum/forum.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:D:/M2/GLA/TP1/Servers/forum/forum.db");
+
 			System.out.println("Opened database successfully");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -43,9 +45,21 @@ public class Datafetcher_sqlite implements Datafetcher {
 	}
 
 	@Override
-	public List<Message> fetchAssociatedMessages(int thread_id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Message> fetchAssociatedMessages(int thread_id) throws SQLException {
+		Statement stmt = this.connection.createStatement();
+
+		String SQL =  "SELECT * FROM MESSAGES WHERE thread_id = " + thread_id + " ORDER BY id";
+		System.out.println("Executing SQL: " + SQL);
+
+		ResultSet result = stmt.executeQuery( SQL );
+
+		List<Message> messages = new ArrayList<Message>();
+
+		while(result.next()) {
+			messages.add(new Message(result.getInt("id"), result.getString("author_id"), result.getString("content"), result.getInt("thread_id")));
+		}
+		stmt.close();
+		return messages;
 	}
 
 	@Override
@@ -58,9 +72,9 @@ public class Datafetcher_sqlite implements Datafetcher {
 
 		ResultSet result = stmt.executeQuery( SQL );
 
-
 		while(result.next()) {
-			list.add(new Thread(result.getInt("id"), result.getString("name"), result.getInt("author_id")));
+			Thread t = new Thread(result.getInt("id"), result.getString("name"), result.getInt("author_id"), result.getInt("views"));
+			list.add(t);
 		}
 
 		stmt.close();
