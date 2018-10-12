@@ -67,13 +67,15 @@ public class Datafetcher_sqlite implements Datafetcher {
 		ArrayList<Thread> list = new ArrayList<Thread>();
 		Statement stmt = this.connection.createStatement();
 
-		String SQL =  "SELECT * FROM THREADS INNER JOIN USERS WHERE THREADS.author_id = USERS.id ORDER BY THREADS.id";
+		String SQL =  "SELECT THREADS.id, THREADS.name, THREADS.views, (SELECT COUNT(*) FROM MESSAGES WHERE thread_id = THREADS.id) AS responses_count, USERS.login " +
+				"FROM THREADS INNER JOIN USERS WHERE THREADS.author_id = USERS.id ORDER BY THREADS.id";
+
 		System.out.println("Executing SQL: " + SQL);
 
 		ResultSet result = stmt.executeQuery( SQL );
 
 		while(result.next()) {
-			Thread t = new Thread(result.getInt("id"), result.getString("name"), result.getInt("author_id"), result.getInt("views"), result.getString("login"));
+			Thread t = new Thread(result.getInt("id"), result.getString("name"), 0, result.getInt("views"), result.getString("login"), result.getInt("responses_count"));
 			list.add(t);
 		}
 
@@ -133,6 +135,29 @@ public class Datafetcher_sqlite implements Datafetcher {
 				e.printStackTrace();
 			}
 
+	}
+
+	
+	@Override
+	public void updateThreadViewCount(int thread_id) throws SQLException {
+		Statement stmt = this.connection.createStatement();
+
+		String SQL =  "UPDATE THREADS SET  views = views + 1 WHERE id = " + thread_id;
+		System.out.println("Executing SQL: " + SQL);
+
+		stmt.executeQuery( SQL );
+		stmt.close();
+	}
+
+	@Override
+	public void updateThreadViewCount(int thread_id, int view_count) throws SQLException {
+		Statement stmt = this.connection.createStatement();
+
+		String SQL =  "UPDATE THREADS SET  views = " + view_count + " WHERE id = " + thread_id;
+		System.out.println("Executing SQL: " + SQL);
+
+		stmt.executeQuery( SQL );
+		stmt.close();
 	}
 
 }

@@ -23,6 +23,10 @@ public interface Datafetcher {
 	
 	public User fetchUser(int id) throws SQLException;
 	
+	public void updateThreadViewCount(int thread_id) throws SQLException;
+	
+	public void updateThreadViewCount(int thread_id, int view_count) throws SQLException;
+	
 	public void closeConnection();
 	
 }

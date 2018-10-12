@@ -15,7 +15,7 @@ public class Thread {
 	private int author_id;
 	private String author_name;
 	private int views;
-	private int numResponses;
+	private int responses_count = 0;
 	
 	public Thread(int id, String name, int author, int views) {
 		this.id = id;
@@ -24,9 +24,10 @@ public class Thread {
 		this.views = views;
 	}
 	
-	public Thread(int id, String name, int author, int views, String author_name) {
+	public Thread(int id, String name, int author, int views, String author_name, int responses_count) {
 		this(id, name, author, views);
 		this.author_name = author_name;
+		this.responses_count = responses_count;
 	}
 
 	public int getId() {
@@ -68,14 +69,15 @@ public class Thread {
 		}
 	}
 	
-	public int getNumResponses() {
-		return numResponses;
+	
+	public int getResponses_count() {
+		return responses_count;
 	}
 
-	public void setNumResponses(int numResponses) {
-		this.numResponses = numResponses;
-	}	
-	
+	public void setResponses_count(int responses_count) {
+		this.responses_count = responses_count;
+	}
+
 	public String getAuthor_name() {
 		return author_name;
 	}
@@ -86,7 +88,7 @@ public class Thread {
 
 	@Override
 	public String toString() {
-		return "Thread [id=" + id + ", name=" + name + ", author=" + author_id + "]";
+		return "Thread [id=" + id + ", name=" + name + ", author=" + author_id + ", responses_count=" + responses_count + "]";
 	}
 
 

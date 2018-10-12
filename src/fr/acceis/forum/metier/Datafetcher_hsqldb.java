@@ -124,5 +124,14 @@ public class Datafetcher_hsqldb implements Datafetcher {
 
 	}
 
+	@Override
+	public void updateThreadViewCount(int thread_id) throws SQLException {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void updateThreadViewCount(int thread_id, int view_count) throws SQLException {
+		// TODO Auto-generated method stub
+	}
 
 }
