@@ -3,15 +3,21 @@ package fr.acceis.forum.models;
 public class Message {
 	
 	private int id;
-	private String author;
+	private int author_id;
+	private String author_name;
 	private String content;
 	private int thread_id;
-	
-	public Message(int id, String author, String content, int thread_id) {
+
+	public Message(int id, int author_id, String content, int thread_id) {
 		this.id = id;
-		this.author = author;
+		this.author_id = author_id;
 		this.content = content;
 		this.thread_id = thread_id;
+	}
+	
+	public Message(int id, int author_id, String content, int thread_id, String author_name) {
+		this(id, author_id, content, thread_id);
+		this.author_name = author_name;
 	}
 
 	public int getId() {
@@ -22,12 +28,12 @@ public class Message {
 		this.id = id;
 	}
 
-	public String getAuthor() {
-		return author;
+	public int getAuthorId() {
+		return author_id;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setAuthorId(int author_id) {
+		this.author_id = author_id;
 	}
 
 	public String getContent() {
@@ -44,6 +50,14 @@ public class Message {
 
 	public void setThread_id(int thread_id) {
 		this.thread_id = thread_id;
+	}
+
+	public String getAuthor_name() {
+		return author_name;
+	}
+
+	public void setAuthor_name(String author_name) {
+		this.author_name = author_name;
 	}
 	
 }

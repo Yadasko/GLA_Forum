@@ -48,7 +48,7 @@ public class Datafetcher_sqlite implements Datafetcher {
 	public List<Message> fetchAssociatedMessages(int thread_id) throws SQLException {
 		Statement stmt = this.connection.createStatement();
 
-		String SQL =  "SELECT * FROM MESSAGES WHERE thread_id = " + thread_id + " ORDER BY id";
+		String SQL =  "SELECT * FROM MESSAGES INNER JOIN USERS ON MESSAGES.author_id = USERS.id WHERE MESSAGES.thread_id = " + thread_id + " ORDER BY MESSAGES.id";
 		System.out.println("Executing SQL: " + SQL);
 
 		ResultSet result = stmt.executeQuery( SQL );
@@ -56,7 +56,7 @@ public class Datafetcher_sqlite implements Datafetcher {
 		List<Message> messages = new ArrayList<Message>();
 
 		while(result.next()) {
-			messages.add(new Message(result.getInt("id"), result.getString("author_id"), result.getString("content"), result.getInt("thread_id")));
+			messages.add(new Message(result.getInt("id"), result.getInt("author_id"), result.getString("content"), result.getInt("thread_id"), result.getString("login")));
 		}
 		stmt.close();
 		return messages;
@@ -67,13 +67,13 @@ public class Datafetcher_sqlite implements Datafetcher {
 		ArrayList<Thread> list = new ArrayList<Thread>();
 		Statement stmt = this.connection.createStatement();
 
-		String SQL =  "SELECT * FROM Threads";
+		String SQL =  "SELECT * FROM THREADS INNER JOIN USERS WHERE THREADS.author_id = USERS.id ORDER BY THREADS.id";
 		System.out.println("Executing SQL: " + SQL);
 
 		ResultSet result = stmt.executeQuery( SQL );
 
 		while(result.next()) {
-			Thread t = new Thread(result.getInt("id"), result.getString("name"), result.getInt("author_id"), result.getInt("views"));
+			Thread t = new Thread(result.getInt("id"), result.getString("name"), result.getInt("author_id"), result.getInt("views"), result.getString("login"));
 			list.add(t);
 		}
 

@@ -12,15 +12,21 @@ public class Thread {
 	
 	private int id;
 	private String name;
-	private int author;
+	private int author_id;
+	private String author_name;
 	private int views;
 	private int numResponses;
 	
 	public Thread(int id, String name, int author, int views) {
 		this.id = id;
 		this.name = name;
-		this.author = author;
+		this.author_id = author;
 		this.views = views;
+	}
+	
+	public Thread(int id, String name, int author, int views, String author_name) {
+		this(id, name, author, views);
+		this.author_name = author_name;
 	}
 
 	public int getId() {
@@ -44,7 +50,6 @@ public class Thread {
 		try {
 			return d.fetchUser(this.id);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return new User(null, -1, null);
 		}
@@ -71,10 +76,17 @@ public class Thread {
 		this.numResponses = numResponses;
 	}	
 	
-	
+	public String getAuthor_name() {
+		return author_name;
+	}
+
+	public void setAuthor_name(String author_name) {
+		this.author_name = author_name;
+	}
+
 	@Override
 	public String toString() {
-		return "Thread [id=" + id + ", name=" + name + ", author=" + author + "]";
+		return "Thread [id=" + id + ", name=" + name + ", author=" + author_id + "]";
 	}
 
 
