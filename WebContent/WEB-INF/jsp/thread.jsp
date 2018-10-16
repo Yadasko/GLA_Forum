@@ -37,14 +37,14 @@
 								<p class="navbar_element">
 									<!-- We could have used this one-liner if we didn't care about the link being displayed only when not connected -->
 									<!-- <c:out value="${username != null ? username : '<a> Non connecté !</a>'}"/> -->
-									<c:set var="username" value="${sessionScope.username}" />
-									<c:if test="${username == null }">
-										<a href="/forum/login?ref=${requestScope['javax.servlet.forward.request_uri']}&id=${param.id}"> <c:out value="Se connecter !" />
+									<c:set var="user" value="${sessionScope.user}" />
+									<c:if test="${user == null }">
+										<a href="/forum/login"> <c:out value="Se connecter !" />
 										</a>
 									</c:if>
 
-									<c:if test="${ username != null }">
-											${username}
+									<c:if test="${ user != null }">
+											${user.login}
 											<a style="padding-left: 10px;" href="/forum/logout"> Se déconnecter</a>
 									</c:if>
 								</p>
@@ -102,7 +102,7 @@
 					<tr class="row2">
 						<td class="profile" valign="top">
 							<table cellspacing="4" align="center" width="150"></table> <span
-							class="postdetails"> <b>Posts: </b>24
+							class="postdetails"> <b>Posts: </b>${messages.author_posts_count}
 						</span>
 						</td>
 						<td valign="top">
@@ -133,9 +133,9 @@
 				</table>
 			</c:forEach>
 			
-			<c:if test="${username != null }">
-				<form action="/forum/login" method="post">
-
+			<c:if test="${user != null }">
+				<form action="/forum/thread" method="post">
+				<input name="thread_id" type="hidden" value="${param.id}"/>
 				<table class="tablebg" cellspacing="1" width="100%">
 					<tbody>
 						<tr>
@@ -145,12 +145,11 @@
 						<tr>
 							<td class="row2 wrapcentre">
 
-								<table style="width: 100%;" cellspacing="1" cellpadding="4"
+								<table style="width: 100%;" cellspacing="1" cellpadding="6"
 									align="center">
 									<tbody>
 										<tr>
-											<td valign="top"><b class="gensmall">Message :</b></td>
-											<td><textarea>Lorem ipsum sit dolor</textarea></td>
+											<td style="display:flex;justify-content:center;align-items:center;"><textarea name="content" style="width: 430px; height: 130px;"></textarea></td>
 										</tr>
 
 									</tbody>

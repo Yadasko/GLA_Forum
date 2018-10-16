@@ -7,6 +7,8 @@ public class Message {
 	private String author_name;
 	private String content;
 	private int thread_id;
+	
+	private int author_posts_count; // Field so we can display the number of posts by the author in the thread
 
 	public Message(int id, int author_id, String content, int thread_id) {
 		this.id = id;
@@ -18,6 +20,11 @@ public class Message {
 	public Message(int id, int author_id, String content, int thread_id, String author_name) {
 		this(id, author_id, content, thread_id);
 		this.author_name = author_name;
+	}
+	
+	public Message(int id, int author_id, String content, int thread_id, String author_name, int author_post_counts) {
+		this(id, author_id, content, thread_id, author_name);
+		this.author_posts_count = author_post_counts;
 	}
 
 	public int getId() {
@@ -59,5 +66,15 @@ public class Message {
 	public void setAuthor_name(String author_name) {
 		this.author_name = author_name;
 	}
+
+	public int getAuthor_posts_count() {
+		return author_posts_count;
+	}
+
+	public void setAuthor_posts_count(int author_posts_count) {
+		this.author_posts_count = author_posts_count;
+	}
+	
+	
 	
 }

@@ -16,7 +16,7 @@ public class LogoutServlet extends HttpServlet {
 		session.invalidate();
 		
 		// Send the user back to *home*
-		req.getRequestDispatcher("/WEB-INF/jsp/threads.jsp").forward(req, resp);
+		resp.sendRedirect("/forum/home");
 	}
 	
 	@Override

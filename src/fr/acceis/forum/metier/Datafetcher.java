@@ -27,6 +27,8 @@ public interface Datafetcher {
 	
 	public void updateThreadViewCount(int thread_id, int view_count) throws SQLException;
 	
+	public void addThreadAnswer(int thread_id, String content, int user_id) throws SQLException;
+	
 	public void closeConnection();
 	
 }

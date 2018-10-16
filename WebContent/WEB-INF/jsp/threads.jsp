@@ -35,14 +35,14 @@
 								<p class="navbar_element">
 									<!-- We could have used this one-liner if we didn't care about the link being displayed only when not connected -->
 									<!-- <c:out value="${username != null ? username : '<a> Non connecté !</a>'}"/> -->
-									<c:set var="username" value="${sessionScope.username}" />
-									<c:if test="${username == null }">
-										<a href="/forum/login?ref=${requestScope['javax.servlet.forward.request_uri']}"> <c:out value="Se connecter !" />
+									<c:set var="user" value="${sessionScope.user}" />
+									<c:if test="${user == null }">
+										<a href="/forum/login"> <c:out value="Se connecter !" />
 										</a>
 									</c:if>
 
-									<c:if test="${ username != null }">
-											${username}
+									<c:if test="${ user != null }">
+											${user.login}
 											<a style="padding-left: 10px;" href="/forum/logout"> Se déconnecter</a>
 									</c:if>
 								</p>

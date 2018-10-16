@@ -12,14 +12,15 @@ import javax.servlet.http.HttpSession;
 import fr.acceis.forum.metier.DBUtils;
 import fr.acceis.forum.metier.Datafetcher;
 import fr.acceis.forum.models.User;
+import fr.acceis.forum.models.UserSession;
 
 public class LoginServlet extends HttpServlet {
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-					
-		if (session.getAttribute("username") == null) {
+
+		if (session.getAttribute("user") == null) {
 			req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
 		}
 		else {
@@ -29,44 +30,37 @@ public class LoginServlet extends HttpServlet {
 			else
 				req.getRequestDispatcher("/WEB-INF/jsp/threads.jsp").forward(req, resp);
 		}
-			
+
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String username = req.getParameter("username");
 		String passw = req.getParameter("password");
-		
+
 		System.out.println("Username " + username + " - Password " + passw);
-		
+
+		UserSession us = new UserSession(username, passw);
+
 		HttpSession session = req.getSession();	
-		try {
-			if (auth(username, passw)) {
-				session.setAttribute("username", username);	
-				//req.getRequestDispatcher("/WEB-INF/jsp/threads.jsp").forward(req, resp);
-				if (req.getParameter("ref") != null)
-					resp.sendRedirect(req.getParameter("ref"));
-				else
-					resp.sendRedirect("/forum/home");
-			}
-			else {
-				req.setAttribute("info_msg", "Utilisateur/Mot de passe incorrect.");
-				req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (us.isLogged_in()) {
+			session.setAttribute("user", us);	
+			resp.sendRedirect("/forum/home");
 		}
-		
+		else {
+			req.setAttribute("info_msg", "Utilisateur/Mot de passe incorrect.");
+			req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
+		}
+
 	}
-	
+
 	protected boolean auth(String login, String password) throws SQLException {
 		//return ("admin".equals(login) && "admin".equals(password));
-		
+
 		Datafetcher df = DBUtils.getDataFetcher();
-		
+
 		User user = df.fetchUser(login);
-		
+
 		if (user.getId() == -1) return false; // No one has been found	
 		return (user.getPassword().equals(password) && user.getLogin().equals(login));
 	}
