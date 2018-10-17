@@ -15,17 +15,7 @@
 	
 			<br style="clear: both;" />
 	
-				<table class="tablebg" style="margin-top: 5px;" cellspacing="1" cellpadding="0" width="100%">
-					<tbody>
-						<tr>
-							<td class="row1">
-								<p class="breadcrumbs">
-									<a href="/forum/home">Accueil</a>
-								</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<jsp:include page="layout/topbar.jsp" />
 				<br />
 	
 				<form action="/forum/login" method="post">
@@ -69,16 +59,7 @@
 				</tr>        
 				</c:if>
 
-				<table class="tablebg" style="margin-top: 5px;" cellspacing="1"
-					cellpadding="0" width="100%">
-					<tbody>
-						<tr>
-							<td class="row1">
-								<p class="breadcrumbs">Index du forum</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<jsp:include page="layout/footer.jsp" />
 		</div>
 	</body>
 </html>

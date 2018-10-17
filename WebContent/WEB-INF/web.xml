@@ -12,6 +12,11 @@
 	</servlet>
 	
 	<servlet>
+		<servlet-name>new_thread</servlet-name>
+		<servlet-class>fr.acceis.forum.servlet.New_ThreadServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
 		<servlet-name>thread</servlet-name>
 		<servlet-class>fr.acceis.forum.servlet.ThreadServlet</servlet-class>
 	</servlet>
