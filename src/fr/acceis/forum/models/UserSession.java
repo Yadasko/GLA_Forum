@@ -65,6 +65,9 @@ public class UserSession implements Serializable {
 		this.logged_in = logged_in;
 	}
     
+	public String toString() {
+		return "UserSession[" + this.user_id + ": " + this.login + " ? " + this.isLogged_in() + "]";
+	}
     
     
 }

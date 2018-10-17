@@ -29,6 +29,8 @@ public interface Datafetcher {
 	
 	public void addThreadAnswer(int thread_id, String content, int user_id) throws SQLException;
 	
+	public int createNewThread(String name, String content, int author_id) throws SQLException; // Create a new thread and post the first message to it
+	
 	public void closeConnection();
 	
 }

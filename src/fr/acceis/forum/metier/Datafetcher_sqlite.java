@@ -156,7 +156,7 @@ public class Datafetcher_sqlite implements Datafetcher {
 		String SQL =  "UPDATE THREADS SET  views = " + view_count + " WHERE id = " + thread_id;
 		System.out.println("Executing SQL: " + SQL);
 
-		stmt.executeQuery( SQL );
+		stmt.execute( SQL );
 		stmt.close();
 	}
 
@@ -170,6 +170,28 @@ public class Datafetcher_sqlite implements Datafetcher {
 		stmt.execute( SQL );
 		stmt.close();
 		
+	}
+
+	@Override
+	public int createNewThread(String name, String content, int author_id) throws SQLException {
+		Statement stmt = this.connection.createStatement();
+		
+		String SQL = "INSERT INTO `Threads` (`name`,`author_id`, `views`) VALUES ('" + name + "', " + author_id + ", 0)";
+		
+		stmt.execute( SQL );
+		
+		// Grab the thread id that has been created
+		SQL = "SELECT last_insert_rowid() AS id";
+		ResultSet res = stmt.executeQuery(SQL);
+		
+		int id = -1;
+		if (res.next()) id = res.getInt("id");
+		else return id;
+		
+		// Add the first answer to the thread
+		this.addThreadAnswer(id, content, author_id);
+		
+		return id;
 	}
 
 
