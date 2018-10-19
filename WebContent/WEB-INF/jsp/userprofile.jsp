@@ -41,7 +41,15 @@
 									<td><c:out value="${posts}"/></td>
 								</tr>
 	
-
+								<tr>
+									<form action="/forum/fileUpload" method="post" enctype="multipart/form-data">
+									<td valign="top"><b class="gensmall">Set your avatar:</b></td>
+									<td>
+										<input type="file" name="avatar"/>
+									</td>
+									<td><input name="login" class="btnmain" value="Upload avatar" tabindex="5" type="submit" /></td>
+									</form>
+								</tr>
 							
 						</table>
 					</td>
@@ -49,7 +57,6 @@
 
 			</tbody>
 		</table>
-
 		<c:if test="${info_msg != null}">
 			<tr>
 				<td valign="top">${info_msg}</td>
