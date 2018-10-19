@@ -9,6 +9,7 @@ public class Message {
 	private int thread_id;
 	
 	private int author_posts_count; // Field so we can display the number of posts by the author in the thread
+	private String associated_thread_name; // Field so we can store the name of the thread and diplay it in the thread
 
 	public Message(int id, int author_id, String content, int thread_id) {
 		this.id = id;
@@ -22,9 +23,10 @@ public class Message {
 		this.author_name = author_name;
 	}
 	
-	public Message(int id, int author_id, String content, int thread_id, String author_name, int author_post_counts) {
+	public Message(int id, int author_id, String content, int thread_id, String author_name, int author_post_counts, String thread_name) {
 		this(id, author_id, content, thread_id, author_name);
 		this.author_posts_count = author_post_counts;
+		this.associated_thread_name = thread_name;
 	}
 
 	public int getId() {
@@ -74,7 +76,14 @@ public class Message {
 	public void setAuthor_posts_count(int author_posts_count) {
 		this.author_posts_count = author_posts_count;
 	}
-	
+
+	public String getAssociated_thread_name() {
+		return associated_thread_name;
+	}
+
+	public void setAssociated_thread_name(String associated_thread_name) {
+		this.associated_thread_name = associated_thread_name;
+	}
 	
 	
 }

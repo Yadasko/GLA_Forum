@@ -48,7 +48,8 @@ public class Datafetcher_sqlite implements Datafetcher {
 	public List<Message> fetchAssociatedMessages(int thread_id) throws SQLException {
 		Statement stmt = this.connection.createStatement();
 
-		String SQL =  "SELECT MESSAGES.content, Users.login, (SELECT COUNT(*) FROM MESSAGES WHERE author_id = Users.id) AS msg_count FROM Messages INNER JOIN USERS ON MESSAGES.author_id = USERS.id WHERE MESSAGES.thread_id = " + thread_id + " ORDER BY MESSAGES.id";
+		String SQL =  "SELECT MESSAGES.content, Users.login, Threads.name, (SELECT COUNT(*) FROM MESSAGES WHERE author_id = Users.id) AS msg_count" + 
+				" FROM Messages, Threads  INNER JOIN USERS ON MESSAGES.author_id = USERS.id AND MESSAGES.thread_id = Threads.ID WHERE MESSAGES.thread_id = " + thread_id + " ORDER BY MESSAGES.id";
 		System.out.println("Executing SQL: " + SQL);
 
 		ResultSet result = stmt.executeQuery( SQL );
@@ -56,7 +57,7 @@ public class Datafetcher_sqlite implements Datafetcher {
 		List<Message> messages = new ArrayList<Message>();
 
 		while(result.next()) {
-			messages.add(new Message(0, 0, result.getString("content"), 0, result.getString("login"), result.getInt("msg_count")));
+			messages.add(new Message(0, 0, result.getString("content"), 0, result.getString("login"), result.getInt("msg_count"), result.getString("name")));
 		}
 		stmt.close();
 		return messages;
@@ -164,7 +165,7 @@ public class Datafetcher_sqlite implements Datafetcher {
 	public void addThreadAnswer(int thread_id, String content, int user_id) throws SQLException {
 		Statement stmt = this.connection.createStatement();
 		
-		String SQL = "INSERT INTO `Messages`(`author_id`,`content`,`thread_id`) VALUES (" + user_id + ",'" + content + "', " + thread_id + ");";
+		String SQL = "INSERT INTO `Messages`(`author_id`,`content`,`thread_id`) VALUES (" + user_id + ",\"" + content + "\", " + thread_id + ");";
 		System.out.println("Executing SQL: " + SQL);
 		
 		stmt.execute( SQL );

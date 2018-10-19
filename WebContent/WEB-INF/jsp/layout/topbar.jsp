@@ -30,3 +30,18 @@
 		</tr>
 	</tbody>
 </table>
+
+<br clear="all" />
+
+<table cellspacing="1" width="100%">
+	<tbody>
+		<tr>
+			<c:if test="${ user != null }">
+			<td valign="middle" align="left"><a href="/forum/new_thread"><img
+				src="fichiers/button_topic_new.gif" alt="Post new topic"
+				title="Post new topic" /></a></td>
+			</c:if>
+			
+		</tr>
+	</tbody>
+</table>

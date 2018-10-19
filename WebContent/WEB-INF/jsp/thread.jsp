@@ -21,19 +21,6 @@
 		<div id="pagecontent">
 
 			<jsp:include page="layout/topbar.jsp" />
-			<br clear="all" />
-
-			<table cellspacing="1" width="100%">
-				<tbody>
-					<tr>
-						<td valign="middle" align="left" colspan="4" nowrap="nowrap"><a
-							href="#"><img src="fichiers/button_topic_new.gif"
-								alt="Post new topic" title="Post new topic" /></a>&nbsp;<a href="#"><img
-								src="fichiers/button_topic_reply.gif" alt="Reply to topic"
-								title="Reply to topic" /></a></td>
-					</tr>
-				</tbody>
-			</table>
 
 			<br clear="all" />
 
@@ -52,7 +39,7 @@
 
 											<td class="gensmall" width="100%">
 												<div style="float: left;">
-													&nbsp; <b>Fil de discussion :</b> Mon fil de discussion
+													&nbsp; <b>Fil de discussion :</b> <c:out value="${messages.associated_thread_name}"/>
 												</div>
 												<div style="float: right;">
 													<b>Posted:</b> Wed Aug 17, 2016 2:12 pm&nbsp;
@@ -77,7 +64,7 @@
 								<tbody>
 									<tr>
 										<td>
-											<div class="postbody">${messages.content}</div> <br
+											<div class="postbody"> <c:out value="${messages.content}"/> </div> <br
 											clear="all" />
 										<br />
 											<table cellspacing="0" width="100%">

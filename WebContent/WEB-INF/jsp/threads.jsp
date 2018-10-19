@@ -19,17 +19,6 @@
 		<div id="pagecontent">
 
 			<jsp:include page="layout/topbar.jsp" />
-			<br clear="all" />
-
-			<table cellspacing="1" width="100%">
-				<tbody>
-					<tr>
-						<td valign="middle" align="left"><img
-							src="fichiers/button_topic_new.gif" alt="Post new topic"
-							title="Post new topic" /></td>
-					</tr>
-				</tbody>
-			</table>
 
 			<br clear="all" />
 
