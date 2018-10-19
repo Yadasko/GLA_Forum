@@ -5,6 +5,7 @@ public class User {
 	private String login;
 	private int id;
 	private String password;
+	private int posts_number;
 	
 	public User(String login, int id, String password) {
 		this.login = login;
@@ -12,6 +13,14 @@ public class User {
 		this.password = password;
 	}
 	
+	public int getPosts_number() {
+		return posts_number;
+	}
+
+	public void setPosts_number(int posts_number) {
+		this.posts_number = posts_number;
+	}
+
 	public String toString() {
 		return "[" + this.id + "] " + this.login + ":" + this.password; 
 	}

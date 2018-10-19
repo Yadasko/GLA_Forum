@@ -48,8 +48,8 @@ public class Datafetcher_sqlite implements Datafetcher {
 	public List<Message> fetchAssociatedMessages(int thread_id) throws SQLException {
 		Statement stmt = this.connection.createStatement();
 
-		String SQL =  "SELECT MESSAGES.content, Users.login, Threads.name, (SELECT COUNT(*) FROM MESSAGES WHERE author_id = Users.id) AS msg_count" + 
-				" FROM Messages, Threads  INNER JOIN USERS ON MESSAGES.author_id = USERS.id AND MESSAGES.thread_id = Threads.ID WHERE MESSAGES.thread_id = " + thread_id + " ORDER BY MESSAGES.id";
+			String SQL =  "SELECT MESSAGES.content, Users.login, Threads.name, (SELECT COUNT(*) FROM MESSAGES WHERE author_id = Users.id) AS msg_count" + 
+					" FROM Messages, Threads  INNER JOIN USERS ON MESSAGES.author_id = USERS.id AND MESSAGES.thread_id = Threads.ID WHERE MESSAGES.thread_id = " + thread_id + " ORDER BY MESSAGES.id";
 		System.out.println("Executing SQL: " + SQL);
 
 		ResultSet result = stmt.executeQuery( SQL );
@@ -88,7 +88,7 @@ public class Datafetcher_sqlite implements Datafetcher {
 	public User fetchUser(String login) throws SQLException {
 		Statement stmt = this.connection.createStatement();
 
-		String SQL =  "SELECT * FROM USERS WHERE login = '" + login + "'";
+		String SQL =  "SELECT Users.id, Users.login, Users.password, (SELECT COUNT(*) FROM MESSAGES WHERE author_id = Users.id) AS msg_count FROM Users WHERE login = '" + login + "'";
 		System.out.println("Executing SQL: " + SQL);
 
 		ResultSet result = stmt.executeQuery( SQL );
@@ -96,6 +96,7 @@ public class Datafetcher_sqlite implements Datafetcher {
 
 		if (result.next()) {
 			User u = new User(result.getString("login"), result.getInt("id"), result.getString("password"));
+			u.setPosts_number(result.getInt("msg_count"));
 			stmt.close(); // Sqlite differs from hsqldb as we can't close the statement one the query is done but once we have fetched everything
 			return u;
 		}
@@ -108,8 +109,8 @@ public class Datafetcher_sqlite implements Datafetcher {
 
 	public User fetchUser(int id) throws SQLException {
 		Statement stmt = this.connection.createStatement();
-
-		String SQL =  "SELECT * FROM USERS WHERE id = '" + id + "'";
+		
+		String SQL =  "SELECT Users.id, Users.login, Users.password, (SELECT COUNT(*) FROM MESSAGES WHERE author_id = Users.id) AS msg_count FROM Users WHERE id = '" + id + "'";
 		System.out.println("Executing SQL: " + SQL);
 
 		ResultSet result = stmt.executeQuery( SQL );
@@ -117,6 +118,7 @@ public class Datafetcher_sqlite implements Datafetcher {
 
 		if (result.next()) {
 			User u = new User(result.getString("login"), result.getInt("id"), result.getString("password"));
+			u.setPosts_number(result.getInt("msg_count"));
 			stmt.close(); // Sqlite differs from hsqldb as we can't close the statement one the query is done but once we have fetched everything
 			return u;
 		}

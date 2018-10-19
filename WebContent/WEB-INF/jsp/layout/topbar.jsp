@@ -22,7 +22,7 @@
 					</c:if>
 
 					<c:if test="${ user != null }">
-											${user.login}
+											<a href="/forum/profile?id=${user.user_id}">${user.login}</a>
 											<a style="padding-left: 10px;" href="/forum/logout"> Se
 							déconnecter</a>
 					</c:if>
