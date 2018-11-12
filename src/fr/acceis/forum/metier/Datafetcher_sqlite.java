@@ -6,6 +6,8 @@ import java.util.List;
 import fr.acceis.forum.models.Message;
 import fr.acceis.forum.models.Thread;
 import fr.acceis.forum.models.User;
+
+import java.io.InputStream;
 import java.sql.*;
 
 public class Datafetcher_sqlite implements Datafetcher {
@@ -15,8 +17,8 @@ public class Datafetcher_sqlite implements Datafetcher {
 	public Datafetcher_sqlite() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			//connection = DriverManager.getConnection("jdbc:sqlite:F:/Documents/M2/GLA/GLA_Forum/forum.db");
-			connection = DriverManager.getConnection("jdbc:sqlite:D:/M2/GLA/TP1/Servers/forum/forum.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:F:/Documents/M2/GLA/GLA_Forum/forum.db");
+			//connection = DriverManager.getConnection("jdbc:sqlite:D:/M2/GLA/TP1/Servers/forum/forum.db");
 
 			System.out.println("Opened database successfully");
 		} catch (ClassNotFoundException e) {
@@ -197,5 +199,53 @@ public class Datafetcher_sqlite implements Datafetcher {
 		return id;
 	}
 
+	@Override
+	public void updateUserAvatar(int user_id, InputStream blob, int blob_size) throws SQLException {		
+		String SQL = "INSERT INTO `Avatars` (`user_id`, `image`) VALUES (?, ?)";
+
+		PreparedStatement ps = this.connection.prepareStatement(SQL);
+		
+		ps.setInt(1, user_id);
+		ps.setBinaryStream(2, blob, blob_size);
+		
+		ps.executeUpdate();
+		ps.close();
+		
+	}
+	
+	public byte[] fetchUserAvatar(int user_id) throws SQLException {
+		Statement stmt = this.connection.createStatement();
+		
+		String SQL = "SELECT image FROM Avatars WHERE user_id = " + user_id;
+		
+		
+		ResultSet result  = stmt.executeQuery( SQL );
+		
+		if (result.next()) {
+			//return result.getBinaryStream("image");
+			return result.getBytes("image");
+		}
+		else {
+			stmt.close();
+		}
+		return null;
+	}
+
+	// Fetching default avatar from DB so we don't have any issues with different path files
+	public byte[] fetchDefaultAvatar() throws SQLException {
+		Statement stmt = this.connection.createStatement();
+		
+		String SQL = "SELECT image FROM Avatars WHERE user_id = -1";
+		
+		ResultSet result  = stmt.executeQuery( SQL );
+		
+		if (result.next()) {
+			return result.getBytes("image");
+		}
+		else {
+			stmt.close();
+		}
+		return null;
+	}
 
 }

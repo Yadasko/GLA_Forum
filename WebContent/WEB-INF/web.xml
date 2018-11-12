@@ -41,6 +41,11 @@
 		<servlet-class>fr.acceis.forum.servlet.FileUploadServlet</servlet-class>
 	</servlet>
 	
+	<servlet>
+		<servlet-name>imageServlet</servlet-name>
+		<servlet-class>fr.acceis.forum.servlet.ImageServlet</servlet-class>
+	</servlet>
+	
 	
 	<servlet-mapping>
 		<servlet-name>accueil</servlet-name>
@@ -75,6 +80,11 @@
 	<servlet-mapping>
 		<servlet-name>fileUpload</servlet-name>
 		<url-pattern>/fileUpload</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>imageServlet</servlet-name>
+		<url-pattern>/avatar</url-pattern>
 	</servlet-mapping>
 
 </web-app>

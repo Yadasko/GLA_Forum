@@ -24,6 +24,7 @@ public class UserProfileServlet extends HttpServlet {
 				User u = DBUtils.getDataFetcher().fetchUser(Integer.parseInt(req.getParameter("id")));
 				System.out.println(u.getLogin());
 				if (u.getId() != -1) { // User has been found
+					req.setAttribute("id", u.getId());
 					req.setAttribute("login",  u.getLogin());
 					req.setAttribute("posts", u.getPosts_number());
 					

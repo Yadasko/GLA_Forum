@@ -46,10 +46,12 @@ public class FileUploadServlet extends HttpServlet {
 					System.out.println("Item: " + item.getName() + " coming from: " + item.getFieldName() + " with content: " + item.getContentType());
 					if (item.getFieldName().equals("avatar")) {
 						String extension = item.getContentType().split("/")[1];
-						File f = new File("D:\\M2\\GLA\\TP1\\Servers\\forum\\WebContent\\fichiers\\avatars\\" + us.getUser_id() + "." + extension);
-						item.write(f);
+
+						Datafetcher df = DBUtils.getDataFetcher();
+						df.updateUserAvatar(us.getUser_id(), item.getInputStream(), (int) item.getSize());
+						
+						// TODO: Add redirection once the image is uploaded
 					}
-					
 				}
 					
 			} catch (FileUploadException e) {

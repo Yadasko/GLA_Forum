@@ -30,7 +30,12 @@
 
 						<table style="width: 15%;" cellspacing="1" cellpadding="4"
 							>
-						
+								
+								<tr>
+									<td valign="top"><b class="gensmall">Avatar :</b> </td>
+									<td><img src="avatar?userId=<c:out value="${id}"/>" height="100" width="100"></img></td>
+								</tr>
+								
 								<tr>
 									<td valign="top"><b class="gensmall">Login :</b> </td>
 									<td><c:out value="${login}"/></td>
