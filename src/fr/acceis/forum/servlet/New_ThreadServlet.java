@@ -30,6 +30,7 @@ public class New_ThreadServlet extends HttpServlet {
 		System.out.println("content: " + content + " - name: " + name);
 		
 		try {
+			System.out.println(us.getUser_id());
 			int id = DBUtils.getDataFetcher().createNewThread(name, content, us.getUser_id());
 			resp.sendRedirect("/forum/thread?id=" + id);
 

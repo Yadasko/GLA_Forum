@@ -30,7 +30,7 @@
 					<tbody>
 						<tr class="row2">
 
-							<td valign="middle" align="center"><b class="postauthor">${messages.author_name}</b>
+							<td valign="middle" align="center"><b class="postauthor"><a href="forum/profile?id=${messages.authorId }">${messages.author_name}</a></b>
 							</td>
 							<td width="100%" height="25">
 								<table cellspacing="0" width="100%">
@@ -55,9 +55,14 @@
 
 					<tr class="row2">
 						<td class="profile" valign="top">
-							<table cellspacing="4" align="center" width="150"></table> <span
+							<table cellspacing="4" align="center" width="150">
+							<tbody><th>
+							<img src="avatar?userId=<c:out value="${messages.authorId}"/>" height="100" width="100"></img></th>
+							<br/> <span
 							class="postdetails"> <b>Posts: </b>${messages.author_posts_count}
 						</span>
+						</tbody>
+						</table>
 						</td>
 						<td valign="top">
 							<table cellspacing="5" width="100%">

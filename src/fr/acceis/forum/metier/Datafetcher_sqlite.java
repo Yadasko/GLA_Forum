@@ -17,8 +17,8 @@ public class Datafetcher_sqlite implements Datafetcher {
 	public Datafetcher_sqlite() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite:F:/Documents/M2/GLA/GLA_Forum/forum.db");
-			//connection = DriverManager.getConnection("jdbc:sqlite:D:/M2/GLA/TP1/Servers/forum/forum.db");
+			//connection = DriverManager.getConnection("jdbc:sqlite:F:/Documents/M2/GLA/GLA_Forum/forum.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:D:/M2/GLA/TP1/Servers/forum/forum.db");
 
 			System.out.println("Opened database successfully");
 		} catch (ClassNotFoundException e) {
@@ -50,7 +50,7 @@ public class Datafetcher_sqlite implements Datafetcher {
 	public List<Message> fetchAssociatedMessages(int thread_id) throws SQLException {
 		Statement stmt = this.connection.createStatement();
 
-			String SQL =  "SELECT MESSAGES.content, Users.login, Threads.name, (SELECT COUNT(*) FROM MESSAGES WHERE author_id = Users.id) AS msg_count" + 
+		String SQL =  "SELECT MESSAGES.content, Users.login, Users.id, Threads.name, (SELECT COUNT(*) FROM MESSAGES WHERE author_id = Users.id) AS msg_count" + 
 					" FROM Messages, Threads  INNER JOIN USERS ON MESSAGES.author_id = USERS.id AND MESSAGES.thread_id = Threads.ID WHERE MESSAGES.thread_id = " + thread_id + " ORDER BY MESSAGES.id";
 		System.out.println("Executing SQL: " + SQL);
 
@@ -59,7 +59,7 @@ public class Datafetcher_sqlite implements Datafetcher {
 		List<Message> messages = new ArrayList<Message>();
 
 		while(result.next()) {
-			messages.add(new Message(0, 0, result.getString("content"), 0, result.getString("login"), result.getInt("msg_count"), result.getString("name")));
+			messages.add(new Message(0, result.getInt("id"), result.getString("content"), 0, result.getString("login"), result.getInt("msg_count"), result.getString("name")));
 		}
 		stmt.close();
 		return messages;
@@ -169,25 +169,36 @@ public class Datafetcher_sqlite implements Datafetcher {
 	public void addThreadAnswer(int thread_id, String content, int user_id) throws SQLException {
 		Statement stmt = this.connection.createStatement();
 		
-		String SQL = "INSERT INTO `Messages`(`author_id`,`content`,`thread_id`) VALUES (" + user_id + ",\"" + content + "\", " + thread_id + ");";
+		String SQL = "INSERT INTO `Messages`(`author_id`,`content`,`thread_id`) VALUES (?, ?, ?);";
+		PreparedStatement ps = this.connection.prepareStatement(SQL);
+		
+		ps.setInt(1, user_id);
+		ps.setString(2, content);
+		ps.setInt(3, thread_id);
+		
 		System.out.println("Executing SQL: " + SQL);
 		
-		stmt.execute( SQL );
-		stmt.close();
+		ps.execute();
+		ps.close();
 		
 	}
 
 	@Override
-	public int createNewThread(String name, String content, int author_id) throws SQLException {
-		Statement stmt = this.connection.createStatement();
+	public int createNewThread(String name, String content, int author_id) throws SQLException {		
+		String SQL = "INSERT INTO `Threads` (`name`,`author_id`, `views`) VALUES (?, ?, 0)";
+	
+		PreparedStatement ps = this.connection.prepareStatement(SQL);
 		
-		String SQL = "INSERT INTO `Threads` (`name`,`author_id`, `views`) VALUES ('" + name + "', " + author_id + ", 0)";
+		ps.setString(1, name);
+		ps.setInt(2, author_id);
 		
-		stmt.execute( SQL );
+		ps.execute();
 		
 		// Grab the thread id that has been created
+		Statement st = this.connection.createStatement();
 		SQL = "SELECT last_insert_rowid() AS id";
-		ResultSet res = stmt.executeQuery(SQL);
+		
+		ResultSet res = st.executeQuery(SQL);
 		
 		int id = -1;
 		if (res.next()) id = res.getInt("id");
@@ -213,13 +224,13 @@ public class Datafetcher_sqlite implements Datafetcher {
 		
 	}
 	
-	public byte[] fetchUserAvatar(int user_id) throws SQLException {
-		Statement stmt = this.connection.createStatement();
+	public byte[] fetchUserAvatar(int user_id) throws SQLException {		
+		String SQL = "SELECT image FROM Avatars WHERE user_id = ?";
 		
-		String SQL = "SELECT image FROM Avatars WHERE user_id = " + user_id;
+		PreparedStatement stmt = this.connection.prepareStatement(SQL);
+		stmt.setInt(1, user_id);
 		
-		
-		ResultSet result  = stmt.executeQuery( SQL );
+		ResultSet result  = stmt.executeQuery();
 		
 		if (result.next()) {
 			//return result.getBinaryStream("image");

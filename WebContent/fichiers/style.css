@@ -308,7 +308,7 @@ th {
 	color: #bababa;
 	font-size: 1.1em;
 	font-weight: bold;
-	background-color: #5f5f5f;
+	/*background-color: #5f5f5f;*/
 	background-image: url('styles/subsilver2/theme/images/cellpic3.gif');
 	white-space: nowrap;
 	padding: 7px 5px;

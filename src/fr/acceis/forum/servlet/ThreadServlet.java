@@ -35,7 +35,6 @@ public class ThreadServlet extends HttpServlet {
 		req.getRequestDispatcher("/WEB-INF/jsp/thread.jsp").forward(req, resp);
 		
 		// We update view count only now so it does not affect load time (why not?)
-		
 		try {
 			df.updateThreadViewCount(thread_id);
 		} catch (SQLException e) {
