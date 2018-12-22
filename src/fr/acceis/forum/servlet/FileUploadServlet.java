@@ -28,20 +28,22 @@ public class FileUploadServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getRequestDispatcher("/WEB-INF/jsp/threads.jsp").forward(req, resp);
-		}
+	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		if (session.getAttribute("user") != null)
 		{
-			
+
 			UserSession us = (UserSession) session.getAttribute("user");
+
+
 			FileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload upload = new ServletFileUpload(factory);
 			try {
 				List<FileItem> items = upload.parseRequest(new ServletRequestContext(req));
-				
+
 				for (FileItem item : items) {
 					System.out.println("Item: " + item.getName() + " coming from: " + item.getFieldName() + " with content: " + item.getContentType());
 					if (item.getFieldName().equals("avatar")) {
@@ -49,11 +51,12 @@ public class FileUploadServlet extends HttpServlet {
 
 						Datafetcher df = DBUtils.getDataFetcher();
 						df.updateUserAvatar(us.getUser_id(), item.getInputStream(), (int) item.getSize());
-						
-						// TODO: Add redirection once the image is uploaded
+
+						// Redirect to profile!
+						resp.sendRedirect("/forum/profile?id="+us.getUser_id());
 					}
 				}
-					
+
 			} catch (FileUploadException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
@@ -61,8 +64,8 @@ public class FileUploadServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
-		
+
+
 	}
 
 

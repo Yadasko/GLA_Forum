@@ -2,8 +2,8 @@ Afficher l'avatar utilisateurs dans les threads. DONE Mettre au centre l'avatar.
 Pouvoir cliquer sur le nom d'utilisateur dans les threads (link vers profil) DONE
 Change SQL statement into prepared Statements DONE
 NE PAS POUVOIR CHANGER L'IMAGE D'UN AUTRE UTILISATEUR !!
-Redirection sur le profil quand on change d'image
-Pouvoir changer d'image depuis le profil (??)
+Redirection sur le profil quand on change d'image DONE
+Pouvoir changer d'image depuis le profil (??) DONE
 Limiter la taille et le type de fichier pour l'avatar
 
 Inscription utilisateur

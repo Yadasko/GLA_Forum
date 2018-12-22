@@ -8,11 +8,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.acceis.forum.metier.DBUtils;
 import fr.acceis.forum.metier.Datafetcher;
 import fr.acceis.forum.models.Thread;
 import fr.acceis.forum.models.User;
+import fr.acceis.forum.models.UserSession;
 
 public class UserProfileServlet extends HttpServlet {
 
@@ -20,6 +22,7 @@ public class UserProfileServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		if (req.getParameter("id") != null) {
+			
 			try {
 				User u = DBUtils.getDataFetcher().fetchUser(Integer.parseInt(req.getParameter("id")));
 				System.out.println(u.getLogin());
@@ -27,6 +30,10 @@ public class UserProfileServlet extends HttpServlet {
 					req.setAttribute("id", u.getId());
 					req.setAttribute("login",  u.getLogin());
 					req.setAttribute("posts", u.getPosts_number());
+					
+					HttpSession session = req.getSession();
+					UserSession us = (UserSession) session.getAttribute("user");
+					req.setAttribute("userid", us.getUser_id());
 					
 					req.getRequestDispatcher("/WEB-INF/jsp/userprofile.jsp").forward(req, resp);
 				}

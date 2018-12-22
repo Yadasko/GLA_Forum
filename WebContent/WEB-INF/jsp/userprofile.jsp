@@ -24,38 +24,42 @@
 				<tr>
 					<th colspan="2">User Profile</th>
 				</tr>
-			
+
 				<tr>
 					<td class="row2">
 
-						<table style="width: 15%;" cellspacing="1" cellpadding="4"
-							>
-								
+						<table style="width: 15%;" cellspacing="1" cellpadding="4">
+
+							<tr>
+								<td valign="top"><b class="gensmall">Avatar :</b></td>
+								<td><img src="avatar?userId=<c:out value="${id}"/>"
+									height="100" width="100"></img></td>
+							</tr>
+
+							<tr>
+								<td valign="top"><b class="gensmall">Login :</b></td>
+								<td><c:out value="${login}" /></td>
+
+							</tr>
+							<tr>
+								<td valign="top"><b class="gensmall">Messages posted:</b></td>
+								<td><c:out value="${posts}" /></td>
+							</tr>
+
+							<c:if test="${ userid == id }">
 								<tr>
-									<td valign="top"><b class="gensmall">Avatar :</b> </td>
-									<td><img src="avatar?userId=<c:out value="${id}"/>" height="100" width="100"></img></td>
-								</tr>
-								
-								<tr>
-									<td valign="top"><b class="gensmall">Login :</b> </td>
-									<td><c:out value="${login}"/></td>
-									
-								</tr>
-								<tr>
-									<td valign="top"><b class="gensmall">Messages posted:</b></td>
-									<td><c:out value="${posts}"/></td>
-								</tr>
-	
-								<tr>
-									<form action="/forum/fileUpload" method="post" enctype="multipart/form-data">
-									<td valign="top"><b class="gensmall">Set your avatar:</b></td>
-									<td>
-										<input type="file" name="avatar"/>
-									</td>
-									<td><input name="login" class="btnmain" value="Upload avatar" tabindex="5" type="submit" /></td>
+									<form action="/forum/fileUpload" method="post"
+										enctype="multipart/form-data">
+										<td valign="top"><b class="gensmall">Set your avatar:</b></td>
+										<td><input type="file" name="avatar" /></td>
+										<td><input name="login" class="btnmain"
+											value="Upload avatar" tabindex="5" type="submit" /></td>
 									</form>
 								</tr>
-							
+							</c:if>
+
+
+
 						</table>
 					</td>
 				</tr>
