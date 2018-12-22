@@ -157,9 +157,6 @@ public class Datafetcher_sqlite implements Datafetcher {
 
 	@Override
 	public void updateThreadViewCount(int thread_id, int view_count) throws SQLException {
-		
-
-//		String SQL =  "UPDATE THREADS SET  views = " + view_count + " WHERE id = " + thread_id;
 		String SQL =  "UPDATE THREADS SET views = ? WHERE id = ? ";
 		PreparedStatement ps = this.connection.prepareStatement(SQL);
 		
@@ -216,8 +213,10 @@ public class Datafetcher_sqlite implements Datafetcher {
 	}
 
 	@Override
-	public void updateUserAvatar(int user_id, InputStream blob, int blob_size) throws SQLException {		
-		String SQL = "INSERT INTO `Avatars` (`user_id`, `image`) VALUES (?, ?)";
+	public void updateUserAvatar(int user_id, InputStream blob, int blob_size) throws SQLException {
+		/* Way simpler than I thought! */
+		/* This will try to insert a row with user_id. If error (caused by unique constraint), it will replace it with a new row (new row id) */
+		String SQL = "INSERT OR REPLACE INTO `Avatars` (user_id, image) values (?, ?)";
 
 		PreparedStatement ps = this.connection.prepareStatement(SQL);
 		
