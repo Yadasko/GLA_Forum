@@ -314,6 +314,10 @@ th {
 	padding: 7px 5px;
 }
 
+th.accueil {
+	background-color: #5f5f5f;
+}
+
 td {
 	padding: 2px;
 }

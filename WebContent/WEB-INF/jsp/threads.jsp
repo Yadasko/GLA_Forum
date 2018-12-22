@@ -25,24 +25,10 @@
 			<table class="tablebg" cellspacing="1" width="100%">
 				<tbody>
 					<tr>
-						<td class="cat" colspan="4">
-							<table cellspacing="0" width="100%">
-								<tbody>
-									<tr class="nav">
-										<td valign="middle">&nbsp;</td>
-										<td valign="middle" align="right">&nbsp;</td>
-									</tr>
-								</tbody>
-							</table>
-						</td>
-					</tr>
-
-					<tr>
-
-						<th>&nbsp;Topics&nbsp;</th>
-						<th>&nbsp;Auteur&nbsp;</th>
-						<th>&nbsp;R&eacute;ponses&nbsp;</th>
-						<th>&nbsp;Vues&nbsp;</th>
+						<th class="accueil">&nbsp;Topics&nbsp;</th>
+						<th class="accueil">&nbsp;Auteur&nbsp;</th>
+						<th class="accueil">&nbsp;R&eacute;ponses&nbsp;</th>
+						<th class="accueil">&nbsp;Vues&nbsp;</th>
 					</tr>
 
 
