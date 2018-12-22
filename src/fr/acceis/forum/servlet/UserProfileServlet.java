@@ -33,7 +33,10 @@ public class UserProfileServlet extends HttpServlet {
 					
 					HttpSession session = req.getSession();
 					UserSession us = (UserSession) session.getAttribute("user");
-					req.setAttribute("userid", us.getUser_id());
+					if (us == null)
+						req.setAttribute("userid", -1);
+					else
+						req.setAttribute("userid", us.getUser_id());
 					
 					req.getRequestDispatcher("/WEB-INF/jsp/userprofile.jsp").forward(req, resp);
 				}
