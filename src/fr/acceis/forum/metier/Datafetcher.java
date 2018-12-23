@@ -9,12 +9,6 @@ import fr.acceis.forum.models.User;
 import fr.acceis.forum.models.Thread;
 
 public interface Datafetcher {
-
-	public boolean auth(String username, String password);
-	
-	public boolean addUser(String username, String password); 
-	
-	public String getAllData();
 	
 	public List<Message> fetchAssociatedMessages(int thread_id) throws SQLException;
 	
@@ -23,6 +17,8 @@ public interface Datafetcher {
 	public User fetchUser(String login) throws SQLException;
 	
 	public User fetchUser(int id) throws SQLException;
+	
+	public void createUser(String username, String password) throws SQLException;
 	
 	public void updateThreadViewCount(int thread_id) throws SQLException;
 	

@@ -7,6 +7,9 @@ Pouvoir changer d'image depuis le profil (??) DONE
 Limiter la taille et le type de fichier pour l'avatar DONE
 
 Inscription utilisateur
+Chiffrer les mots de passes !
+
+
 Mise en place des filtres (d'auth par exemple)
 Ajouter de vrais logs
 Limiter ces logs en taille

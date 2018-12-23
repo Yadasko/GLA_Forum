@@ -29,24 +29,6 @@ public class Datafetcher_sqlite implements Datafetcher {
 	}
 
 	@Override
-	public boolean auth(String username, String password) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addUser(String username, String password) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public String getAllData() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Message> fetchAssociatedMessages(int thread_id) throws SQLException {
 
 		String SQL =  "SELECT MESSAGES.content, Users.login, Users.id, Threads.name, (SELECT COUNT(*) FROM MESSAGES WHERE author_id = Users.id) AS msg_count" + 
@@ -88,6 +70,18 @@ public class Datafetcher_sqlite implements Datafetcher {
 		return list;
 	}
 
+	@Override
+	public void createUser(String username, String password) throws SQLException {
+		String SQL = "INSERT INTO `Users`(`login`,`password`) VALUES (?, ?)";
+		PreparedStatement ps = this.connection.prepareStatement(SQL);
+		
+		ps.setString(1, username);
+		ps.setString(2, password);
+		
+		ps.execute();
+		ps.close();
+	}
+	
 	@Override
 	public User fetchUser(String login) throws SQLException {
 		String SQL =  "SELECT Users.id, Users.login, Users.password, (SELECT COUNT(*) FROM MESSAGES WHERE author_id = Users.id) AS msg_count FROM Users WHERE login = ? ";
@@ -217,6 +211,9 @@ public class Datafetcher_sqlite implements Datafetcher {
 		/* Way simpler than I thought! */
 		/* This will try to insert a row with user_id. If error (caused by unique constraint), it will replace it with a new row (new row id) */
 		String SQL = "INSERT OR REPLACE INTO `Avatars` (user_id, image) values (?, ?)";
+		
+		System.out.println("updatingUserAvatar with user_id: " + user_id);
+		System.out.println("Using SQL: " + SQL);
 
 		PreparedStatement ps = this.connection.prepareStatement(SQL);
 		

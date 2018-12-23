@@ -19,6 +19,9 @@
 					<c:if test="${user == null }">
 						<a href="/forum/login"> <c:out value="Se connecter !" />
 						</a>
+						- 
+						<a href="/forum/signin"> <c:out value="S'inscrire !" />
+						</a>
 					</c:if>
 
 					<c:if test="${ user != null }">

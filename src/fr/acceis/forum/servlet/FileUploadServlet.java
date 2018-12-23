@@ -48,8 +48,13 @@ public class FileUploadServlet extends HttpServlet {
 					System.out.println("Item: " + item.getName() + " coming from: " + item.getFieldName() + " with content: " + item.getContentType());
 					if (item.getFieldName().equals("avatar")) {
 						
-						if (!item.getContentType().equals("image/jpeg") || item.getContentType().equals("image/png") || (item.getSize() / 1024) >= 200 ) {
+						if (!item.getContentType().equals("image/jpeg")) System.out.println("image/jpeg");
+						if (!item.getContentType().equals("image/png")) System.out.println("image/png");
+						if ((item.getSize() / 1024) >= 300) System.out.println("size " + (item.getSize() / 1024));
+						
+						if (!(item.getContentType().equals("image/jpeg") || item.getContentType().equals("image/png")) || (item.getSize() / 1024) >= 300 ) {
 							resp.sendRedirect("/forum/profile?id="+us.getUser_id());
+							System.out.println("Error");
 							return;
 						}
 							
