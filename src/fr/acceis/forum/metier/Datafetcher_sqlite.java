@@ -71,12 +71,13 @@ public class Datafetcher_sqlite implements Datafetcher {
 	}
 
 	@Override
-	public void createUser(String username, String password) throws SQLException {
-		String SQL = "INSERT INTO `Users`(`login`,`password`) VALUES (?, ?)";
+	public void createUser(String username, String password, String salt) throws SQLException {
+		String SQL = "INSERT INTO `Users`(`login`,`password`, `salt`) VALUES (?, ?, ?)";
 		PreparedStatement ps = this.connection.prepareStatement(SQL);
 		
 		ps.setString(1, username);
 		ps.setString(2, password);
+		ps.setString(3, salt);
 		
 		ps.execute();
 		ps.close();
@@ -84,16 +85,16 @@ public class Datafetcher_sqlite implements Datafetcher {
 	
 	@Override
 	public User fetchUser(String login) throws SQLException {
-		String SQL =  "SELECT Users.id, Users.login, Users.password, (SELECT COUNT(*) FROM MESSAGES WHERE author_id = Users.id) AS msg_count FROM Users WHERE login = ? ";
+		String SQL =  "SELECT Users.id, Users.login, Users.password, Users.salt, (SELECT COUNT(*) FROM MESSAGES WHERE author_id = Users.id) AS msg_count FROM Users WHERE login = ? ";
 		PreparedStatement ps = this.connection.prepareStatement(SQL);
 		
 		ps.setString(1, login);
-		
 		ResultSet result = ps.executeQuery();
 
 		if (result.next()) {
 			User u = new User(result.getString("login"), result.getInt("id"), result.getString("password"));
 			u.setPosts_number(result.getInt("msg_count"));
+			u.setSalt(result.getString("salt"));
 			ps.close(); // Sqlite differs from hsqldb as we can't close the statement once the query is done but once we have fetched everything
 			return u;
 		}
@@ -106,7 +107,7 @@ public class Datafetcher_sqlite implements Datafetcher {
 
 	public User fetchUser(int id) throws SQLException {
 		
-		String SQL =  "SELECT Users.id, Users.login, Users.password, (SELECT COUNT(*) FROM MESSAGES WHERE author_id = Users.id) AS msg_count FROM Users WHERE id = ? ";
+		String SQL =  "SELECT Users.id, Users.login, Users.password, Users.salt, (SELECT COUNT(*) FROM MESSAGES WHERE author_id = Users.id) AS msg_count FROM Users WHERE id = ? ";
 		PreparedStatement ps = this.connection.prepareStatement(SQL);
 		
 		ps.setInt(1, id);
@@ -116,6 +117,7 @@ public class Datafetcher_sqlite implements Datafetcher {
 		if (result.next()) {
 			User u = new User(result.getString("login"), result.getInt("id"), result.getString("password"));
 			u.setPosts_number(result.getInt("msg_count"));
+			u.setSalt(result.getString("salt"));
 			ps.close(); // Sqlite differs from hsqldb as we can't close the statement once the query is done but once we have fetched everything
 			return u;
 		}

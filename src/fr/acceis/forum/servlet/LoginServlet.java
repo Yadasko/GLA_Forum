@@ -41,6 +41,7 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("Username " + username + " - Password " + passw);
 
 		UserSession us = new UserSession(username, passw);
+		us.login();
 
 		HttpSession session = req.getSession();	
 		if (us.isLogged_in()) {
@@ -54,15 +55,16 @@ public class LoginServlet extends HttpServlet {
 
 	}
 
-	protected boolean auth(String login, String password) throws SQLException {
-		//return ("admin".equals(login) && "admin".equals(password));
-
-		Datafetcher df = DBUtils.getDataFetcher();
-
-		User user = df.fetchUser(login);
-
-		if (user.getId() == -1) return false; // No one has been found	
-		return (user.getPassword().equals(password) && user.getLogin().equals(login));
-	}
+//	NOT USED ANYMORE AS AUTH IS DONE IN USERSESSION MODEL (I don't remember why I did that though...)
+//	protected boolean auth(String login, String password) throws SQLException {
+//		//return ("admin".equals(login) && "admin".equals(password));
+//
+//		Datafetcher df = DBUtils.getDataFetcher();
+//
+//		User user = df.fetchUser(login);
+//
+//		if (user.getId() == -1) return false; // No one has been found	
+//		return (user.getPassword().equals(password) && user.getLogin().equals(login));
+//	}
 
 }

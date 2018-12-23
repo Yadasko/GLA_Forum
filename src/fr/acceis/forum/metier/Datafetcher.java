@@ -18,7 +18,7 @@ public interface Datafetcher {
 	
 	public User fetchUser(int id) throws SQLException;
 	
-	public void createUser(String username, String password) throws SQLException;
+	public void createUser(String username, String password, String salt) throws SQLException;
 	
 	public void updateThreadViewCount(int thread_id) throws SQLException;
 	

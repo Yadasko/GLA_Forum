@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.acceis.forum.metier.Cryptutils;
 import fr.acceis.forum.metier.DBUtils;
 import fr.acceis.forum.metier.Datafetcher;
+import fr.acceis.forum.models.PasswordModel;
 import fr.acceis.forum.models.User;
-import fr.acceis.forum.models.UserSession;
 
 public class SigninServlet extends HttpServlet {
 
@@ -61,7 +62,10 @@ public class SigninServlet extends HttpServlet {
 				return;
 			}
 			
-			df.createUser(username, passw);
+			PasswordModel pm = Cryptutils.hashPassword(passw);
+			df.createUser(username, pm.hash, pm.salt);
+			
+			req.getRequestDispatcher("/WEB-INF/jsp/threads.jsp").forward(req, resp);
 		} catch (SQLException e) {
 			req.getRequestDispatcher("/WEB-INF/jsp/signin.jsp").forward(req, resp);
 			e.printStackTrace();

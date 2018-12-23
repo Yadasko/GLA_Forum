@@ -3,6 +3,7 @@ package fr.acceis.forum.models;
 import java.io.Serializable;
 import java.sql.SQLException;
 
+import fr.acceis.forum.metier.Cryptutils;
 import fr.acceis.forum.metier.DBUtils;
 import fr.acceis.forum.metier.Datafetcher;
 
@@ -17,11 +18,9 @@ public class UserSession implements Serializable {
     public UserSession(String login, String password) {
     	this.login = login;
     	this.password = password;
-    	
-    	this.logged_in = this.login();
     }
     
-    private boolean login() {
+    public void login() {
     	Datafetcher df = DBUtils.getDataFetcher();
 		
 		User user;
@@ -29,11 +28,14 @@ public class UserSession implements Serializable {
 			user = df.fetchUser(this.login);
 			this.user_id = user.getId();
 			
-			if (user.getId() == -1) return false; // No one has been found	
-			return (user.getPassword().equals(password) && user.getLogin().equals(login));
+			if (user.getId() == -1) this.logged_in = false; // No one has been found	
+			
+			Cryptutils.verifyPassword(password, user.getPassword(), user.getSalt());
+			
+			this.logged_in = Cryptutils.verifyPassword(password, user.getPassword(), user.getSalt());
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			this.logged_in = false;
 		}
     }
 
