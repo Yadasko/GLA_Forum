@@ -65,7 +65,7 @@ public class SigninServlet extends HttpServlet {
 			PasswordModel pm = Cryptutils.hashPassword(passw);
 			df.createUser(username, pm.hash, pm.salt);
 			
-			req.getRequestDispatcher("/WEB-INF/jsp/threads.jsp").forward(req, resp);
+			resp.sendRedirect("login");
 		} catch (SQLException e) {
 			req.getRequestDispatcher("/WEB-INF/jsp/signin.jsp").forward(req, resp);
 			e.printStackTrace();

@@ -30,7 +30,7 @@
 					<tbody>
 						<tr class="row2">
 
-							<td valign="middle" align="center"><b class="postauthor"><a href="profile?id=${messages.authorId }">${messages.author_name}</a></b>
+							<td valign="middle" align="center"><b class="postauthor"><a href="profile?id=${messages.authorId }"><c:out value="${messages.author_name}"/></a></b>
 							</td>
 							<td width="100%" height="25">
 								<table cellspacing="0" width="100%">

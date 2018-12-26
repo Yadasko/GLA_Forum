@@ -50,7 +50,7 @@
 							</tr>
 
 							<tr>
-								<td class="cat" colspan="2" align="center"><input name="login" class="btnmain" value="Login" tabindex="5" type="submit" /></td>
+								<td class="cat" colspan="2" align="center"><input name="login" class="btnmain" value="Sign-in" tabindex="5" type="submit" /></td>
 							</tr>
 						</tbody>
 					</table>

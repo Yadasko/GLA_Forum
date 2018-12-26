@@ -10,7 +10,7 @@ Inscription utilisateur
 Chiffrer les mots de passes !
 
 
-Mise en place des filtres (d'auth par exemple)
+Mise en place des filtres (d'auth par exemple) No thnak you
 Ajouter de vrais logs
 Limiter ces logs en taille
 
