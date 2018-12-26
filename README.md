@@ -47,3 +47,9 @@ Le forum n'est en rien fini. Sans parler des innombrables améliorations graphiq
   - Un trigger permettant de supprimer les messages associés à ce thread existe déjà, il suffit d'ajouter la méthode à l'interface de BDD et de trouver un bon endroit pour mettre le lien/bouton pour supprimer le thread
 - Pouvoir supprimer les messages
 - Pouvoir changer de mot de passe
+
+## Mots de passes 
+- admin:admin
+- pierre:pierre
+- jacques:jacques
+- paul:paul
