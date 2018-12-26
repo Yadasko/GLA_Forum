@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.SQLException;
 
 import fr.acceis.forum.metier.Cryptutils;
+import fr.acceis.forum.metier.CustomLogger;
 import fr.acceis.forum.metier.DBUtils;
 import fr.acceis.forum.metier.Datafetcher;
 
@@ -29,12 +30,14 @@ public class UserSession implements Serializable {
 			this.user_id = user.getId();
 			
 			if (user.getId() == -1) this.logged_in = false; // No one has been found	
+			else {
+				Cryptutils.verifyPassword(password, user.getPassword(), user.getSalt());
+				
+				this.logged_in = Cryptutils.verifyPassword(password, user.getPassword(), user.getSalt());
+			}
 			
-			Cryptutils.verifyPassword(password, user.getPassword(), user.getSalt());
-			
-			this.logged_in = Cryptutils.verifyPassword(password, user.getPassword(), user.getSalt());
 		} catch (SQLException e) {
-			e.printStackTrace();
+			CustomLogger.logException(e);
 			this.logged_in = false;
 		}
     }
