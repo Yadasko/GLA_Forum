@@ -1,0 +1,6 @@
+2018-12-26 13:59:28.777 [main] INFO  fr.acceis.forum.metier.CustomLogger - Entering application.
+2018-12-26 13:59:28.783 [main] ERROR fr.acceis.forum.metier.CustomLogger - OH THIS IS BAD!
+2018-12-26 14:00:33.136 [main] INFO  fr.acceis.forum.metier.CustomLogger - Entering application.
+2018-12-26 14:00:33.142 [main] ERROR fr.acceis.forum.metier.CustomLogger - OH THIS IS BAD!
+2018-12-26 14:00:57.683 [main] INFO  fr.acceis.forum.metier.CustomLogger - Entering application.
+2018-12-26 14:00:57.689 [main] ERROR fr.acceis.forum.metier.CustomLogger - OH THIS IS BAD!

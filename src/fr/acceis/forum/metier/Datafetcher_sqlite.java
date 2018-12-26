@@ -20,11 +20,11 @@ public class Datafetcher_sqlite implements Datafetcher {
 			//connection = DriverManager.getConnection("jdbc:sqlite:F:/Documents/M2/GLA/GLA_Forum/forum.db");
 			connection = DriverManager.getConnection("jdbc:sqlite:D:/M2/GLA/TP1/Servers/forum/forum.db");
 
-			System.out.println("Opened database successfully");
+			CustomLogger.logInfo("Opened database successfully");
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			CustomLogger.logException(e);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			CustomLogger.logException(e);
 		}
 	}
 
@@ -57,7 +57,7 @@ public class Datafetcher_sqlite implements Datafetcher {
 		String SQL =  "SELECT THREADS.id, THREADS.name, THREADS.views, (SELECT COUNT(*) FROM MESSAGES WHERE thread_id = THREADS.id) AS responses_count, USERS.login " +
 				"FROM THREADS INNER JOIN USERS WHERE THREADS.author_id = USERS.id ORDER BY THREADS.id";
 
-		System.out.println("Executing SQL: " + SQL);
+		CustomLogger.logInfo("Executing SQL: " + SQL);
 
 		ResultSet result = stmt.executeQuery( SQL );
 
@@ -134,7 +134,7 @@ public class Datafetcher_sqlite implements Datafetcher {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				CustomLogger.logException(e);
 			}
 
 	}
@@ -159,7 +159,7 @@ public class Datafetcher_sqlite implements Datafetcher {
 		ps.setInt(1, view_count);
 		ps.setInt(2, thread_id);
 		
-		System.out.println("Executing SQL: " + SQL);
+		CustomLogger.logInfo("Executing SQL: " + SQL);
 
 		ps.execute();
 		ps.close();
@@ -174,7 +174,7 @@ public class Datafetcher_sqlite implements Datafetcher {
 		ps.setString(2, content);
 		ps.setInt(3, thread_id);
 		
-		System.out.println("Executing SQL: " + SQL);
+		CustomLogger.logInfo("Executing SQL: " + SQL);
 		
 		ps.execute();
 		ps.close();
@@ -214,8 +214,8 @@ public class Datafetcher_sqlite implements Datafetcher {
 		/* This will try to insert a row with user_id. If error (caused by unique constraint), it will replace it with a new row (new row id) */
 		String SQL = "INSERT OR REPLACE INTO `Avatars` (user_id, image) values (?, ?)";
 		
-		System.out.println("updatingUserAvatar with user_id: " + user_id);
-		System.out.println("Using SQL: " + SQL);
+		CustomLogger.logInfo("updatingUserAvatar with user_id: " + user_id);
+		CustomLogger.logInfo("Using SQL: " + SQL);
 
 		PreparedStatement ps = this.connection.prepareStatement(SQL);
 		

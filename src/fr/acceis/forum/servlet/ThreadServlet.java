@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.acceis.forum.metier.CustomLogger;
 import fr.acceis.forum.metier.DBUtils;
 import fr.acceis.forum.metier.Datafetcher;
 import fr.acceis.forum.models.Message;
@@ -51,7 +52,7 @@ public class ThreadServlet extends HttpServlet {
 		try {
 			DBUtils.getDataFetcher().addThreadAnswer(Integer.parseInt(id), content, us.getUser_id());
 		} catch (NumberFormatException | SQLException e) {
-			e.printStackTrace();
+			CustomLogger.logError("SQL ERROR: " + e.getMessage());
 			// Maybe send a message to the user saying that an error happened?
 		}
 		resp.sendRedirect("/forum/thread?id=" + id);

@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 			else
 				req.getRequestDispatcher("/WEB-INF/jsp/threads.jsp").forward(req, resp);
 		}
-
+		
 	}
 
 	@Override

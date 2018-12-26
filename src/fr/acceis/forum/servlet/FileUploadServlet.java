@@ -18,6 +18,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.servlet.ServletRequestContext;
 
+import fr.acceis.forum.metier.CustomLogger;
 import fr.acceis.forum.metier.DBUtils;
 import fr.acceis.forum.metier.Datafetcher;
 import fr.acceis.forum.models.User;
@@ -54,7 +55,7 @@ public class FileUploadServlet extends HttpServlet {
 						
 						if (!(item.getContentType().equals("image/jpeg") || item.getContentType().equals("image/png")) || (item.getSize() / 1024) >= 300 ) {
 							resp.sendRedirect("/forum/profile?id="+us.getUser_id());
-							System.out.println("Error");
+							CustomLogger.logError(us, "tried to send an avatar of type " + item.getContentType() + " and of size " + item.getSize()/1024);
 							return;
 						}
 							
@@ -62,6 +63,8 @@ public class FileUploadServlet extends HttpServlet {
 						
 						Datafetcher df = DBUtils.getDataFetcher();
 						df.updateUserAvatar(us.getUser_id(), item.getInputStream(), (int) item.getSize());
+						
+						CustomLogger.logInfo(us.getLogin() + " has updated his avatar.");
 
 						// Redirect to profile!
 						resp.sendRedirect("/forum/profile?id="+us.getUser_id());
@@ -69,11 +72,11 @@ public class FileUploadServlet extends HttpServlet {
 				}
 
 			} catch (FileUploadException e) {
-				e.printStackTrace();
+				CustomLogger.logError("Error while uploading file. "  + e.getMessage());
 				resp.sendError(500);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				CustomLogger.logException(e);
 			}
 		}
 

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.acceis.forum.metier.Cryptutils;
+import fr.acceis.forum.metier.CustomLogger;
 import fr.acceis.forum.metier.DBUtils;
 import fr.acceis.forum.metier.Datafetcher;
 import fr.acceis.forum.models.PasswordModel;
@@ -31,7 +32,7 @@ public class SigninServlet extends HttpServlet {
 			else
 				req.getRequestDispatcher("/WEB-INF/jsp/threads.jsp").forward(req, resp);
 		}
-
+		
 	}
 
 	@Override
@@ -66,9 +67,11 @@ public class SigninServlet extends HttpServlet {
 			df.createUser(username, pm.hash, pm.salt);
 			
 			resp.sendRedirect("login");
+			
+			CustomLogger.logInfo("A new user has been created by IP " + req.getRemoteAddr());
 		} catch (SQLException e) {
 			req.getRequestDispatcher("/WEB-INF/jsp/signin.jsp").forward(req, resp);
-			e.printStackTrace();
+			CustomLogger.logError("SQL ERROR: " + e.getMessage());
 		}
 	}
 

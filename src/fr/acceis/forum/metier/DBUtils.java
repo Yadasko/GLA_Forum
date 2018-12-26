@@ -1,7 +1,5 @@
 package fr.acceis.forum.metier;
 
-import java.sql.SQLException;
-
 public class DBUtils {
 	
 	private static Datafetcher db = null;

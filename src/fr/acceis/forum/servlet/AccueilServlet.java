@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.acceis.forum.metier.CustomLogger;
 import fr.acceis.forum.metier.DBUtils;
 import fr.acceis.forum.metier.Datafetcher;
 import fr.acceis.forum.models.Thread;
@@ -23,7 +24,7 @@ public class AccueilServlet extends HttpServlet {
 		try {
 			threads = df.fetchThreads();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			CustomLogger.logException(e);
 		}
 		
 		/*threads.forEach(thread -> { // OH GOD IS THIS JAVASCRIPT ?!

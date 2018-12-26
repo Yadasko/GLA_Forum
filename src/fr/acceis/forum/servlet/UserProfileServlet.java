@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.acceis.forum.metier.CustomLogger;
 import fr.acceis.forum.metier.DBUtils;
 import fr.acceis.forum.metier.Datafetcher;
 import fr.acceis.forum.models.Thread;
@@ -25,7 +26,7 @@ public class UserProfileServlet extends HttpServlet {
 			
 			try {
 				User u = DBUtils.getDataFetcher().fetchUser(Integer.parseInt(req.getParameter("id")));
-				System.out.println(u.getLogin());
+
 				if (u.getId() != -1) { // User has been found
 					req.setAttribute("id", u.getId());
 					req.setAttribute("login",  u.getLogin());
@@ -43,7 +44,7 @@ public class UserProfileServlet extends HttpServlet {
 				else resp.sendRedirect("/forum/home");
 
 			} catch (SQLException e) {
-				e.printStackTrace();
+				CustomLogger.logError("SQL ERROR: " + e.getMessage());
 				resp.sendRedirect("/forum/home");
 			}
 		}
@@ -55,5 +56,4 @@ public class UserProfileServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doGet(req, resp);
 	}
-
 }
