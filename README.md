@@ -35,6 +35,15 @@ L'implémentation de la base de données se fait en utilisant SQLite pour sa fac
 Toutes les requêtes sont disponibles dans la classe [Datafetcher_sqlite](https://github.com/Yadasko/GLA_Forum/blob/master/src/fr/acceis/forum/metier/Datafetcher_sqlite.java).
 Il est important de noter que la base de données contient un trigger qui va supprimer tous les messages associés à un topic lors de la suppression de ce dernier.
 ```SQL
-CREATE TRIGGER delete_associated_messages AFTER DELETE ON Threads FOR EACH ROW BEGIN DELETE FROM Messages WHERE Messages.thread_id = OLD.id; END
+CREATE TRIGGER delete_associated_messages AFTER DELETE ON Threads
+FOR EACH ROW 
+BEGIN DELETE FROM Messages WHERE Messages.thread_id = OLD.id; END
 ```
 
+## Améliorations
+Le forum n'est en rien fini. Sans parler des innombrables améliorations graphiques et UX (comme rajouter des messages de feedback lors des erreurs), il reste quelques fonctionalités non-implémentées.
+
+- Pouvoir supprimer les threads
+  - Un trigger permettant de supprimer les messages associés à ce thread existe déjà, il suffit d'ajouter la méthode à l'interface de BDD et de trouver un bon endroit pour mettre le lien/bouton pour supprimer le thread
+- Pouvoir supprimer les messages
+- Pouvoir changer de mot de passe
